@@ -21,14 +21,30 @@ public abstract class HBaseOperation {
     }
 
     public static class DeleteColumn extends HBaseOperation {
-        private DeleteColumn() {
+        private String family;
+        private String column;
+        public DeleteColumn(String family, String column) {
             super(OperationType.DELETE_COLUMN);
+            this.family = family;
+            this.column = column;
+        }
+        public String getFamily(){
+            return family;
+        }
+        public String getColumn(){
+            return column;
         }
     }
 
     public static class DeleteFamily extends HBaseOperation {
-        private DeleteFamily() {
+        private String family;
+        public DeleteFamily(String family) {
             super(OperationType.DELETE_FAMILY);
+            this.family = family;
+        }
+
+        public String getFamily(){
+            return family;
         }
     }
 
@@ -44,10 +60,10 @@ public abstract class HBaseOperation {
         }
     }
 
-    public static final DeleteColumn DELETE_COLUMN = new DeleteColumn();
-    public static final DeleteFamily DELETE_FAMILY = new DeleteFamily();
-    public static final DeleteRow DELETE_ROW = new DeleteRow();
-    public static final NoOp NO_OP = new NoOp();
+    //public static final DeleteColumn DELETE_COLUMN = new DeleteColumn();
+   // public static final DeleteFamily DELETE_FAMILY = new DeleteFamily();
+    //public static final DeleteRow DELETE_ROW = new DeleteRow();
+    //public static final NoOp NO_OP = new NoOp();
 
     private final OperationType operationType;
 

@@ -18,7 +18,7 @@ class HBasePipeWrapper (pipe: Pipe) {
           }}
       }
     }
-  def toHBaseOperation(f: Fields): Pipe = {
+  /*def toHBaseOperation(f: Fields): Pipe = {
     asList(f)
       .foldLeft(pipe){ (p, f) => {
       p.map(f.toString -> f.toString){ from: String => from match {
@@ -29,7 +29,7 @@ class HBasePipeWrapper (pipe: Pipe) {
         case x => new HBaseOperation.PutColumn(new ImmutableBytesWritable(Bytes.toBytes(x)))
       }}
     }}
-  }
+  }*/
 
 	def fromBytesWritable(f: Fields): Pipe = {
 	  asList(f)
