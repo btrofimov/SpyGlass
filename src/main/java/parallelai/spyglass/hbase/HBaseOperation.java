@@ -49,13 +49,13 @@ public abstract class HBaseOperation {
     }
 
     public static class DeleteRow extends HBaseOperation {
-        private DeleteRow() {
+        public DeleteRow() {
             super(OperationType.DELETE_ROW);
         }
     }
 
     static class NoOp extends HBaseOperation {
-        private NoOp() {
+        public NoOp() {
             super(OperationType.NO_OP);
         }
     }
