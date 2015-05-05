@@ -8,22 +8,32 @@ public abstract class HBaseOperation {
     }
 
     public static class PutColumn extends HBaseOperation {
+        private final String family;
+        private final String column;
         private final ImmutableBytesWritable value;
 
-        public PutColumn(final ImmutableBytesWritable value) {
+        public PutColumn(final String family, final String column, final ImmutableBytesWritable value) {
             super(OperationType.PUT_COLUMN);
             this.value = value;
+            this.family = family;
+            this.column = column;
         }
 
         public byte[] getBytes() {
             return value.get();
         }
+        public String getFamily(){
+            return family;
+        }
+        public String getColumn(){
+            return column;
+        }
     }
 
     public static class DeleteColumn extends HBaseOperation {
-        private String family;
-        private String column;
-        public DeleteColumn(String family, String column) {
+        private final String family;
+        private final String column;
+        public DeleteColumn(final String family, final String column) {
             super(OperationType.DELETE_COLUMN);
             this.family = family;
             this.column = column;
@@ -37,8 +47,8 @@ public abstract class HBaseOperation {
     }
 
     public static class DeleteFamily extends HBaseOperation {
-        private String family;
-        public DeleteFamily(String family) {
+        private final String family;
+        public DeleteFamily(final String family) {
             super(OperationType.DELETE_FAMILY);
             this.family = family;
         }
