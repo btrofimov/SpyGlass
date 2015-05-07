@@ -38,6 +38,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import parallelai.spyglass.hbase.HBaseOperation.DeleteColumn;
+import parallelai.spyglass.hbase.HBaseOperation.DeleteFamily;
+import parallelai.spyglass.hbase.HBaseOperation.PutColumn;
 /**
  * The HBaseScheme class is a {@link Scheme} subclass. It is used in conjunction with the {@HBaseTap} to
  * allow for the reading and writing of data to and from a HBase cluster.
@@ -275,13 +278,16 @@ public class HBaseScheme
           HBaseOperation op = (HBaseOperation) item;
           switch(op.getType()) {
             case PUT_COLUMN:
-              put.add(Bytes.toBytes(familyNames[i]), Bytes.toBytes((String) fields.get(j)), ((HBaseOperation.PutColumn) item).getBytes());
+              PutColumn opp = (PutColumn) op;
+              put.add(Bytes.toBytes(opp.getFamily()), Bytes.toBytes(opp.getColumn()), opp.getBytes());
               break;
             case DELETE_COLUMN:
-              delete.deleteColumns(Bytes.toBytes(familyNames[i]), Bytes.toBytes((String) fields.get(j)));
+              DeleteColumn opc = (DeleteColumn) op;
+              delete.deleteColumns(Bytes.toBytes(opc.getFamily()), Bytes.toBytes(opc.getColumn()));
               break;
             case DELETE_FAMILY:
-              delete.deleteFamily(Bytes.toBytes(familyNames[i]));
+              DeleteFamily opf = (DeleteFamily) op;
+              delete.deleteFamily(Bytes.toBytes(opf.getFamily()));
               break;
             case DELETE_ROW:
               deleteRow = true;
