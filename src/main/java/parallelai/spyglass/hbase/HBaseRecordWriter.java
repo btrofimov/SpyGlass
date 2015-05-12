@@ -36,7 +36,7 @@ public class HBaseRecordWriter
    */
   public HBaseRecordWriter(HTable table) {
     m_table = table;
-    deletesBufferSize = table.getConfiguration().getLong("spyglass.deletes.buffer", 524288);
+    deletesBufferSize = table.getConfiguration().getLong("spyglass.deletes.buffer", 1000); //524288
   }
 
   public void close(Reporter reporter)
@@ -74,9 +74,9 @@ public class HBaseRecordWriter
     }
 
     private void doDelete(Delete delete) throws IOException {
-        currentDeletesBufferSize += heapSizeOfDelete(delete); // currentDeletesBufferSize += delete.heapSize();
+        currentDeletesBufferSize += 1; // heapSizeOfDelete(delete); // currentDeletesBufferSize += delete.heapSize();
         deletesBuffer.add(new Delete((Delete) delete));
-        while (currentDeletesBufferSize > deletesBufferSize) {
+        while (currentDeletesBufferSize >= deletesBufferSize) {
             flushDeletes();
         }
     }
@@ -86,9 +86,9 @@ public class HBaseRecordWriter
             m_table.delete(deletesBuffer); // successfull deletes are removed from deletesBuffer
         } finally {
             currentDeletesBufferSize = 0;
-            for (Delete delete: deletesBuffer) {
-                currentDeletesBufferSize += heapSizeOfDelete(delete); // currentDeletesBufferSize += delete.heapSize();
-            }
+            //for (Delete delete: deletesBuffer) {
+            //    currentDeletesBufferSize += heapSizeOfDelete(delete); // currentDeletesBufferSize += delete.heapSize();
+            //}
         }
     }
 
