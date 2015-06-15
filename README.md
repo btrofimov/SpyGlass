@@ -7,7 +7,7 @@ Prevent Hot Spotting by the use of transparent key prefixes.
 
 Changes
 =======
-- Compatible with Scalding 0.9.1 since version 4.2rc2
+- Compatible with Scalding 0.10.2
 - Added JDBC Tap Functionality
 - Added Delete Functionality
 - Added Region grouping of splits

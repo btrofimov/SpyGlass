@@ -29,7 +29,7 @@
         <maven-scala-plugin.version>2.15.2</maven-scala-plugin.version>
         <maven.surefire.plugin.version>2.12.3</maven.surefire.plugin.version>
 
-        <cdh.version>cdh5.4.1</cdh.version>
+        <cdh.version>cdh5.4.2</cdh.version>
 
         <hadoop.version>2.6.0-${cdh.version}</hadoop.version>
         <!-- <hadoop.core.version>2.5.0-${cdh.version}</hadoop.core.version> -->
